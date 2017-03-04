@@ -5,6 +5,7 @@ bin/
 debug/
 obj/
 packages/*
+Publish/
 release/
 testresults/
 *.suo
