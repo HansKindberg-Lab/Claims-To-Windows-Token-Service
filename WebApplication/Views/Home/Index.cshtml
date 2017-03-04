@@ -1,0 +1,32 @@
+﻿@{ ViewBag.Title = "Home"; }
+@model HomeViewModel
+<div class="jumbotron">
+	<h1>Home</h1>
+	<p class="lead">Information, information, information.</p>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h2>Information about different principal/identity values</h2>
+		<h3>HttpContext.User</h3>
+		<ul>
+			<li><strong>HttpContext.User.GetType().FullName: </strong>@Model.HttpContextUser.GetType().FullName</li>
+			<li><strong>HttpContext.User.Identity.IsAuthenticated: </strong>@Model.HttpContextUser.Identity.IsAuthenticated</li>
+			<li><strong>HttpContext.User.Identity.Name: </strong>@Model.HttpContextUser.Identity.Name</li>
+			<li><strong>HttpContext.User.Identity.AuthenticationType: </strong>@Model.HttpContextUser.Identity.AuthenticationType</li>
+			<li><strong>HttpContext.User.Identity.GetType().FullName: </strong>@Model.HttpContextUser.Identity.GetType().FullName</li>
+		</ul>
+		<h3>Current WindowsIdentity</h3>
+		<ul>
+			<li><strong>WindowsIdentity.GetCurrent().IsAuthenticated: </strong>@Model.CurrentWindowsIdentity.IsAuthenticated</li>
+			<li><strong>WindowsIdentity.GetCurrent().Name: </strong>@Model.CurrentWindowsIdentity.Name</li>
+			<li><strong>WindowsIdentity.GetCurrent().AuthenticationType: </strong>@Model.CurrentWindowsIdentity.AuthenticationType</li>
+			<li><strong>WindowsIdentity.GetCurrent().ImpersonationLevel: </strong>@Model.CurrentWindowsIdentity.ImpersonationLevel</li>
+			<li><strong>WindowsIdentity.GetCurrent().GetType().FullName: </strong>@Model.CurrentWindowsIdentity.GetType().FullName</li>
+		</ul>
+		<h2>Information about the impersonated HttpContext.User.Identity</h2>
+		<p>@Model.ImpersonatedHttpContextUserIdentityInformation</p>
+		<p>
+			<a class="btn btn-default" href="#">Learn more &raquo;</a>
+		</p>
+	</div>
+</div>

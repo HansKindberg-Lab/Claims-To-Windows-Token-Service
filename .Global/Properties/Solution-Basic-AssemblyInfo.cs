@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Hans Kindberg - open source")]
 [assembly: AssemblyConfiguration(
 #if DEBUG
-	           "Debug"
+	"Debug"
 #else
 	"Release"
 #endif
-           )]
+)]
 #pragma warning disable 436
 
 [assembly: AssemblyProduct(AssemblyInfo.AssemblyName)]

@@ -1,4 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<Import Condition="Exists('$(SolutionDir).Global\Build\Build.targets')" Project="$(SolutionDir).Global\Build\Build.targets" />
+	<PropertyGroup>
+		<BuildDependsOn>
+			TransformApplicationHostConfiguration;
+			$(BuildDependsOn);
+		</BuildDependsOn>
+	</PropertyGroup>
+	<Target Name="TransformApplicationHostConfiguration">
+		<PropertyGroup>
+			<ApplicationHostConfigurationFile>$(SolutionDir).vs\config\ApplicationHost.config</ApplicationHostConfigurationFile>
+			<ApplicationHostConfigurationFileTransformationXPathPrefix>/configuration/configSections/sectionGroup[@name='system.webServer']/sectionGroup[@name='security']/sectionGroup[@name='authentication']/</ApplicationHostConfigurationFileTransformationXPathPrefix>
+		</PropertyGroup>
+		<ItemGroup>
+			<ApplicationHostConfigurationFileTransformation Include="First">
+				<Value>Allow</Value>
+				<XPath>$(ApplicationHostConfigurationFileTransformationXPathPrefix)section[@name='anonymousAuthentication']/@overrideModeDefault</XPath>
+			</ApplicationHostConfigurationFileTransformation>
+			<ApplicationHostConfigurationFileTransformation Include="Second">
+				<Value>Allow</Value>
+				<XPath>$(ApplicationHostConfigurationFileTransformationXPathPrefix)section[@name='windowsAuthentication']/@overrideModeDefault</XPath>
+			</ApplicationHostConfigurationFileTransformation>
+		</ItemGroup>
+		<Message
+			Condition="Exists('$(ApplicationHostConfigurationFile)')"
+			Importance="high"
+			Text="Transforming '$(ApplicationHostConfigurationFile)'."
+		/>
+		<!--
+		<XmlPeek
+			Query="%(ApplicationHostConfigurationFileTransformation.XPath)"
+			XmlInputPath="$(ApplicationHostConfigurationFile)"
+		>
+			<Output TaskParameter="Result" ItemName="XmlPeekResult" />
+		</XmlPeek>
+		<Message
+			Importance="high"
+			Text=" - XmlPeekResult: %(XmlPeekResult.Identity)"
+		/>
+		-->
+		<XmlPoke
+			Condition="Exists('$(ApplicationHostConfigurationFile)')"
+			Query="%(ApplicationHostConfigurationFileTransformation.XPath)"
+			Value="%(ApplicationHostConfigurationFileTransformation.Value)"
+			XmlInputPath="$(ApplicationHostConfigurationFile)"
+		/>
+	</Target>
 </Project>
