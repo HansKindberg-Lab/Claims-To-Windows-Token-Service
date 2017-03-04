@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Condition="Exists('Build\Build.props')" Project="Build\Build.props" />
+	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+	<PropertyGroup>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<AssemblyName>HansKindberg</AssemblyName>
+		<AssemblyOriginatorKeyFile>$(SolutionDir)$(GlobalSigningDirectoryRelativePath)StrongName.snk</AssemblyOriginatorKeyFile>
+		<CodeAnalysisRuleSet>$(SolutionDir)$(GlobalCodeAnalysisDirectoryRelativePath)Solution.ruleset</CodeAnalysisRuleSet>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<FileAlignment>512</FileAlignment>
+		<OutputType>Library</OutputType>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProjectGuid>{0A0FD65A-F9D9-47ED-987E-C22C1B3CFFB8}</ProjectGuid>
+		<RootNamespace>HansKindberg</RootNamespace>
+		<SignAssembly>true</SignAssembly>
+		<TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<RunCodeAnalysis>$(RunCodeAnalysisOnDebug)</RunCodeAnalysis>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>pdbonly</DebugType>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\</OutputPath>
+		<RunCodeAnalysis>$(RunCodeAnalysisOnRelease)</RunCodeAnalysis>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="System" />
+		<Reference Include="System.Core" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Build\Build.props" />
+		<None Include="Build\Build.targets" />
+		<CodeAnalysisDictionary Include="CodeAnalysis\AssemblyDictionary.xml" />
+		<Compile Include="CodeAnalysis\AssemblySuppressions.cs" />
+		<CodeAnalysisDictionary Include="$(SolutionDir)$(GlobalCodeAnalysisDirectoryRelativePath)SolutionDictionary.xml">
+			<Link>CodeAnalysis\SolutionDictionary.xml</Link>
+		</CodeAnalysisDictionary>
+		<Compile Include="$(SolutionDir)$(GlobalCodeAnalysisDirectoryRelativePath)SolutionSuppressions.cs">
+			<Link>CodeAnalysis\SolutionSuppressions.cs</Link>
+		</Compile>
+		<Compile Include="Properties\AssemblyInfo.cs" />
+		<Compile Include="$(SolutionDir)$(GlobalPropertiesDirectoryRelativePath)Solution-Basic-AssemblyInfo.cs">
+			<Link>Properties\Solution-Basic-AssemblyInfo.cs</Link>
+		</Compile>
+		<Compile Include="$(SolutionDir)$(GlobalPropertiesDirectoryRelativePath)Solution-Version-AssemblyInfo.cs">
+			<Link>Properties\Solution-Version-AssemblyInfo.cs</Link>
+		</Compile>
+		<None Include="HansKindberg.nuspec" />
+	</ItemGroup>
+	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+	<Import Condition="Exists('Build\Build.targets')" Project="Build\Build.targets" />
+</Project>

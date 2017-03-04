@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<IsTestProject>false</IsTestProject>
+		<IsTestProject Condition="$(ProjectTypeGuids.Contains('$(TestProjectTypeGuid)'))">true</IsTestProject>
+	</PropertyGroup>
+	<PropertyGroup>
+		<PrepareForBuildDependsOn>
+			EnsureStrongNameKey;
+			$(PrepareForBuildDependsOn);
+		</PrepareForBuildDependsOn>
+	</PropertyGroup>
+	<Target Name="BuildNuGetPackage">
+		<ItemGroup>
+			<NuGetExePaths Include="$(SolutionDir)packages\NuGet.CommandLine.*\**\NuGet.exe" />
+		</ItemGroup>
+		<PropertyGroup>
+			<NuGetExePath>@(NuGetExePaths)</NuGetExePath>
+			<NuGetExePathCount>@(NuGetExePaths->Count())</NuGetExePathCount>
+			<Properties>Configuration="$(Configuration)"</Properties>
+		</PropertyGroup>
+		<Warning
+			Condition="$(NuGetExePathCount) &lt; 1"
+			Text="You must install the NuGet-package 'NuGet.CommandLine' to be able to build NuGet-packages."
+		/>
+		<Warning
+			Condition="$(NuGetExePathCount) &gt; 1"
+			Text="There are multiple 'NuGet.CommandLine' packages installed: '@(NuGetExePaths)'"
+		/>
+		<Exec
+			Command='"$(NuGetExePath)" pack "$(ProjectPath)" -IncludeReferencedProjects -OutputDirectory $(OutputPath) -Properties $(Properties) -Verbosity "$(NuGetVerbosity)"'
+			Condition="$(NuGetExePathCount) == 1"
+		/>
+	</Target>
+	<Target Name="EnsureStrongNameKey" Condition="$(SignAssembly) AND !$(IsTestProject) AND !Exists('$(AssemblyOriginatorKeyFile)')">
+		<PropertyGroup>
+			<MissingAssemblyOriginatorKeyFile>$(AssemblyOriginatorKeyFile)</MissingAssemblyOriginatorKeyFile>
+		</PropertyGroup>
+		<PropertyGroup>
+			<AssemblyOriginatorKeyFile>$(SolutionDir)$(GlobalSigningDirectoryRelativePath)$(DevelopmentStrongNameKeyFileName)</AssemblyOriginatorKeyFile>
+		</PropertyGroup>
+		<Warning
+			Text="The strong-name-key-file '$(MissingAssemblyOriginatorKeyFile)' does not exist. The strong-name-key-file '$(AssemblyOriginatorKeyFile)' is used instead."
+		/>
+	</Target>
+</Project>

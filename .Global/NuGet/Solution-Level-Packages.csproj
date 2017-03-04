@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<ProjectGuid>{495F7393-3EDA-4AED-9951-4817312E5554}</ProjectGuid>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="packages.config" />
+	</ItemGroup>
+	<Target Name="Build" />
+	<Target Name="Clean" />
+	<Target Name="Rebuild" />
+</Project>

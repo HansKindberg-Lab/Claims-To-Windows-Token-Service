@@ -1,0 +1,14 @@
+_ReSharper*/
+.Global/Signing/*
+.vs*/
+bin/
+debug/
+obj/
+packages/*
+release/
+testresults/
+*.suo
+*.user
+
+!.Global/Signing/ReadMe.txt
+!.Global/Signing/StrongName.Development.snk

@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Global", ".Global", "{ADF888F0-4501-435F-88C9-E25C0E260F91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{81291B92-E818-4E8F-AC5A-57D0461003A8}"
+	ProjectSection(SolutionItems) = preProject
+		.Global\Build\Build.props = .Global\Build\Build.props
+		.Global\Build\Build.targets = .Global\Build\Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{013F1858-3C00-4FA5-90FA-A16A9B6A5F62}"
+	ProjectSection(SolutionItems) = preProject
+		.Global\CodeAnalysis\Solution.ruleset = .Global\CodeAnalysis\Solution.ruleset
+		.Global\CodeAnalysis\Solution.Tests.ruleset = .Global\CodeAnalysis\Solution.Tests.ruleset
+		.Global\CodeAnalysis\SolutionDictionary.xml = .Global\CodeAnalysis\SolutionDictionary.xml
+		.Global\CodeAnalysis\SolutionSuppressions.cs = .Global\CodeAnalysis\SolutionSuppressions.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{316AD076-CEF7-4EDB-950C-75A5FE54A7D3}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{7B43148A-D06A-4ABF-976F-3413749674F9}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{5C6B6667-32CA-4E63-9AC1-210D53407201}"
+	ProjectSection(SolutionItems) = preProject
+		.Global\Properties\Solution-Basic-AssemblyInfo.cs = .Global\Properties\Solution-Basic-AssemblyInfo.cs
+		.Global\Properties\Solution-Version-AssemblyInfo.cs = .Global\Properties\Solution-Version-AssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Signing", "Signing", "{6A2D23C4-AC7A-450B-95DE-0854074CC76D}"
+	ProjectSection(SolutionItems) = preProject
+		.Global\Signing\ReadMe.txt = .Global\Signing\ReadMe.txt
+		.Global\Signing\StrongName.Development.snk = .Global\Signing\StrongName.Development.snk
+		.Global\Signing\StrongName.snk = .Global\Signing\StrongName.snk
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution-Level-Packages", ".Global\NuGet\Solution-Level-Packages.csproj", "{495F7393-3EDA-4AED-9951-4817312E5554}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HansKindberg", "HansKindberg", "{F0165D84-F023-4333-8C84-7F9C69A6006A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{0EA783D3-643C-491A-896C-E9DED2AAA393}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HansKindberg", "HansKindberg\HansKindberg\HansKindberg.csproj", "{0A0FD65A-F9D9-47ED-987E-C22C1B3CFFB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{495F7393-3EDA-4AED-9951-4817312E5554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{495F7393-3EDA-4AED-9951-4817312E5554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{495F7393-3EDA-4AED-9951-4817312E5554}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{495F7393-3EDA-4AED-9951-4817312E5554}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{0EA783D3-643C-491A-896C-E9DED2AAA393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EA783D3-643C-491A-896C-E9DED2AAA393}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EA783D3-643C-491A-896C-E9DED2AAA393}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EA783D3-643C-491A-896C-E9DED2AAA393}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A0FD65A-F9D9-47ED-987E-C22C1B3CFFB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A0FD65A-F9D9-47ED-987E-C22C1B3CFFB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A0FD65A-F9D9-47ED-987E-C22C1B3CFFB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A0FD65A-F9D9-47ED-987E-C22C1B3CFFB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{81291B92-E818-4E8F-AC5A-57D0461003A8} = {ADF888F0-4501-435F-88C9-E25C0E260F91}
+		{013F1858-3C00-4FA5-90FA-A16A9B6A5F62} = {ADF888F0-4501-435F-88C9-E25C0E260F91}
+		{316AD076-CEF7-4EDB-950C-75A5FE54A7D3} = {ADF888F0-4501-435F-88C9-E25C0E260F91}
+		{7B43148A-D06A-4ABF-976F-3413749674F9} = {ADF888F0-4501-435F-88C9-E25C0E260F91}
+		{5C6B6667-32CA-4E63-9AC1-210D53407201} = {ADF888F0-4501-435F-88C9-E25C0E260F91}
+		{6A2D23C4-AC7A-450B-95DE-0854074CC76D} = {ADF888F0-4501-435F-88C9-E25C0E260F91}
+		{495F7393-3EDA-4AED-9951-4817312E5554} = {7B43148A-D06A-4ABF-976F-3413749674F9}
+		{0A0FD65A-F9D9-47ED-987E-C22C1B3CFFB8} = {F0165D84-F023-4333-8C84-7F9C69A6006A}
+	EndGlobalSection
+EndGlobal
