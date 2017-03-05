@@ -21,6 +21,27 @@ namespace HansKindberg.Abstractions
 		public virtual object WrappedInstance { get; }
 
 		#endregion
+
+		#region Methods
+
+		public override bool Equals(object obj)
+		{
+			var wrapper = obj as IWrapper;
+
+			return this.WrappedInstance.Equals(wrapper != null ? wrapper.WrappedInstance : obj);
+		}
+
+		public override int GetHashCode()
+		{
+			return this.WrappedInstance.GetHashCode();
+		}
+
+		public override string ToString()
+		{
+			return this.WrappedInstance.ToString();
+		}
+
+		#endregion
 	}
 
 	public abstract class Wrapper<T> : Wrapper, IWrapper<T>
