@@ -73,6 +73,9 @@ namespace WebApplication.Controllers
 			{
 				using(var userPrincipal = this.UserPrincipalRepository.Get(this.HttpContextUser))
 				{
+					if(userPrincipal == null)
+						return "Error: The user-principal for \"" + this.HttpContextUser.Identity.Name + "\" does not exist.";
+
 					using(var windowsIdentity = this.WindowsIdentityFactory.Create(userPrincipal.UserPrincipalName))
 					{
 						using(this.WindowsImpersonator.Impersonate(windowsIdentity))
