@@ -1,0 +1,25 @@
+﻿@model FileData
+@if(Model != null)
+{
+	<form action="@ViewData["Action"]" method="post">
+		@Html.AntiForgeryToken()
+		<fieldset>
+			<legend>Change file-data</legend>
+			<div>
+				@{ var metadata = ViewData.ModelMetadata.Properties.First(property => property.PropertyName.Equals("Path", StringComparison.OrdinalIgnoreCase)); }
+				<label for="file-path-input">@metadata.GetDisplayName()</label>
+				<input id="file-path-input" name="@metadata.PropertyName" type="text" />
+			</div>
+			<div>
+				@{ metadata = ViewData.ModelMetadata.Properties.First(property => property.PropertyName.Equals("LineToAdd", StringComparison.OrdinalIgnoreCase)); }
+				<label for="file-line-to-add-input">@metadata.GetDisplayName()</label>
+				<input id="file-line-to-add-input" name="@metadata.PropertyName" type="text" />
+			</div>
+			<div>
+				@{ metadata = ViewData.ModelMetadata.Properties.First(property => property.PropertyName.Equals("ImpersonateWithClaimsToWindowsTokenService", StringComparison.OrdinalIgnoreCase)); }
+				<button name="@metadata.PropertyName" title="Ordinary impersonation" type="submit" value="false">Save</button>
+				<button name="@metadata.PropertyName" title="Impersonate with Claims to Windows Token Service" type="submit" value="true">Save (service-impersonation)</button>
+			</div>
+		</fieldset>
+	</form>
+}

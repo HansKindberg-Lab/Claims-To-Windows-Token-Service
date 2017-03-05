@@ -31,5 +31,8 @@
 		<p>
 			<a class="btn btn-default" href="#">Learn more &raquo;</a>
 		</p>
+		@Html.Partial("~/Views/Shared/SystemInformation.cshtml", Model.SystemInformation, new ViewDataDictionary())
+		@Html.Partial("~/Views/Home/Forms/UserAccountDataForm.cshtml", Model.UserAccountDataForm, new ViewDataDictionary {{"Action", "/Home/SaveUserAccount/"}})
+		@Html.Partial("~/Views/Home/Forms/FileDataForm.cshtml", Model.FileDataForm, new ViewDataDictionary {{"Action", "/Home/SaveFile/"}})
 	</div>
 </div>

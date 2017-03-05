@@ -1,5 +1,6 @@
 ﻿using System;
 using System.DirectoryServices.AccountManagement;
+using System.Globalization;
 using HansKindberg;
 using HansKindberg.Abstractions;
 using HansKindberg.Security.Principal;
@@ -44,6 +45,19 @@ namespace WebApplication.Business.DirectoryServices.AccountManagement
 				throw new ArgumentNullException(nameof(securityIdentifier));
 
 			return (UserPrincipalWrapper) UserPrincipal.FindByIdentity(this.CreatePrincipalContext(), IdentityType.Sid, securityIdentifier.Value);
+		}
+
+		public virtual void Save(IUserPrincipal userPrincipal)
+		{
+			if(userPrincipal == null)
+				throw new ArgumentNullException(nameof(userPrincipal));
+
+			var userPrincipalWrapper = userPrincipal as IWrapper<UserPrincipal>;
+
+			if(userPrincipalWrapper == null)
+				throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The user-principal must be a user-principal-wrapper ({0}).", typeof(IWrapper<UserPrincipal>)));
+
+			userPrincipalWrapper.WrappedInstance.Save();
 		}
 
 		#endregion

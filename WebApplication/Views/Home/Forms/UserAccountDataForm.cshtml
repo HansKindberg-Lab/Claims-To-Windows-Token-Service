@@ -1,0 +1,20 @@
+﻿@model UserAccountData
+@if(Model != null)
+{
+	<form action="@ViewData["Action"]" method="post">
+		@Html.AntiForgeryToken()
+		<fieldset>
+			<legend>Change user-account data</legend>
+			<div>
+				@{ var metadata = ViewData.ModelMetadata.Properties.First(property => property.PropertyName.Equals("Notes", StringComparison.OrdinalIgnoreCase)); }
+				<label for="user-account-notes-input">@metadata.GetDisplayName()</label>
+				<input id="user-account-notes-input" name="@metadata.PropertyName" type="text" value="@Model.Notes" />
+			</div>
+			<div>
+				@{ metadata = ViewData.ModelMetadata.Properties.First(property => property.PropertyName.Equals("ImpersonateWithClaimsToWindowsTokenService", StringComparison.OrdinalIgnoreCase)); }
+				<button name="@metadata.PropertyName" title="Ordinary impersonation" type="submit" value="false">Save</button>
+				<button name="@metadata.PropertyName" title="Impersonate with Claims to Windows Token Service" type="submit" value="true">Save (service-impersonation)</button>
+			</div>
+		</fieldset>
+	</form>
+}

@@ -1,0 +1,23 @@
+﻿@model ISystemInformation
+@if(Model != null)
+{
+	<div class="alert">
+		@if(!string.IsNullOrEmpty(Model.Heading))
+		{
+			<h2>@Model.Heading</h2>
+		}
+		@if(!string.IsNullOrEmpty(Model.Heading))
+		{
+			<p>@Model.Information</p>
+		}
+		@if(Model.DetailedInformation != null && Model.DetailedInformation.Any())
+		{
+			<ul>
+				@foreach(var item in Model.DetailedInformation)
+				{
+					<li>@item</li>
+				}
+			</ul>
+		}
+	</div>
+}

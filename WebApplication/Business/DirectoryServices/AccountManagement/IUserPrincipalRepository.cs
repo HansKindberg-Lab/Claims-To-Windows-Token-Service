@@ -10,6 +10,8 @@ namespace WebApplication.Business.DirectoryServices.AccountManagement
 		[SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Get")]
 		IUserPrincipal Get(ISecurityIdentifier securityIdentifier);
 
+		void Save(IUserPrincipal userPrincipal);
+
 		#endregion
 	}
 }
