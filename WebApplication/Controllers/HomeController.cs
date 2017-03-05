@@ -305,6 +305,8 @@ namespace WebApplication.Controllers
 
 			var model = this.CreateModel();
 
+			model.UserAccountDataForm = form;
+
 			if(this.ValidateState(model))
 			{
 				try
@@ -336,10 +338,6 @@ namespace WebApplication.Controllers
 				{
 					this.SetError(model, exception);
 				}
-			}
-			else
-			{
-				model.UserAccountDataForm = form;
 			}
 
 			return this.CreateView(model);
