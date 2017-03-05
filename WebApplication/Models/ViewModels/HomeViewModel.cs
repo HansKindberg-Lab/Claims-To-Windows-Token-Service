@@ -27,6 +27,7 @@ namespace WebApplication.Models.ViewModels
 		public virtual IWindowsIdentity CurrentWindowsIdentity { get; }
 		public virtual IPrincipal HttpContextUser { get; }
 		public virtual string ImpersonatedHttpContextUserIdentityInformation { get; set; }
+		public virtual string ImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService { get; set; }
 
 		#endregion
 	}

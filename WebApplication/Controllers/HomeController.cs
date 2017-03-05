@@ -66,6 +66,45 @@ namespace WebApplication.Controllers
 			if(!this.HttpContextUser.Identity.IsAuthenticated)
 				return "Error: The user is not authenticated.";
 
+			var windowsPrincipal = this.HttpContextUser as IWindowsPrincipal;
+
+			if(windowsPrincipal == null)
+				return "Error: The user is not a windows-user.";
+
+			try
+			{
+				using(this.WindowsImpersonator.Impersonate(windowsPrincipal.WindowsIdentity))
+				{
+					using(var impersonatedWindowsIdentity = this.WindowsIdentityContext.Current)
+					{
+						string authenticationType;
+
+						try
+						{
+							authenticationType = impersonatedWindowsIdentity.AuthenticationType;
+						}
+						catch(Exception exception)
+						{
+							authenticationType = "[Error getting authentication-type: " + exception + "]";
+						}
+
+						return "Impersonated windows-identity: \"" + impersonatedWindowsIdentity.Name + "\" (AuthenticationType = \"" + authenticationType + "\", ImpersonationLevel = " + impersonatedWindowsIdentity.ImpersonationLevel + ")";
+					}
+				}
+			}
+			catch(Exception exception)
+			{
+				return "Error: " + exception;
+			}
+		}
+
+		[SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+		protected internal virtual string GetImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService()
+		{
+			if(!this.HttpContextUser.Identity.IsAuthenticated)
+				return "Error: The user is not authenticated.";
+
 			if(!(this.HttpContextUser is IWindowsPrincipal))
 				return "Error: The user is not a windows-user.";
 
@@ -107,7 +146,11 @@ namespace WebApplication.Controllers
 
 		public virtual ActionResult Index()
 		{
-			return this.View(new HomeViewModel(this.WindowsIdentityContext.Current, this.HttpContextUser) {ImpersonatedHttpContextUserIdentityInformation = this.GetImpersonatedHttpContextUserIdentityInformation()});
+			return this.View(new HomeViewModel(this.WindowsIdentityContext.Current, this.HttpContextUser)
+			{
+				ImpersonatedHttpContextUserIdentityInformation = this.GetImpersonatedHttpContextUserIdentityInformation(),
+				ImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService = this.GetImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService()
+			});
 		}
 
 		#endregion

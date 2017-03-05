@@ -24,7 +24,10 @@
 			<li><strong>WindowsIdentity.GetCurrent().GetType().FullName: </strong>@Model.CurrentWindowsIdentity.GetType().FullName</li>
 		</ul>
 		<h2>Information about the impersonated HttpContext.User.Identity</h2>
+		<h3>Impersonation (ordinary)</h3>
 		<p>@Model.ImpersonatedHttpContextUserIdentityInformation</p>
+		<h3>Impersonation with Claims to Windows Token Service</h3>
+		<p>@Model.ImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService</p>
 		<p>
 			<a class="btn btn-default" href="#">Learn more &raquo;</a>
 		</p>
