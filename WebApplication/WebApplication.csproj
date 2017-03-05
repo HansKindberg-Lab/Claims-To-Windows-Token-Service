@@ -145,10 +145,10 @@
 		<Content Include="Views\Shared\_Layout.cshtml" />
 		<Content Include="Views\_ViewStart.cshtml" />
 		<Content Include="Views\Web.config" />
-		<Content Include="ConnectionStrings.config" />
-		<Content Include="ConnectionStrings.Default.config">
+		<None Include="ConnectionStrings.config" />
+		<None Include="ConnectionStrings.Default.config">
 			<DependentUpon>ConnectionStrings.config</DependentUpon>
-		</Content>
+		</None>
 		<Content Include="Global.asax" />
 		<None Include="packages.config" />
 		<Content Include="Web.config" />
