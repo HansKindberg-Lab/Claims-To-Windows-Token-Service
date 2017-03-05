@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Security.Principal;
 using HansKindberg.Security.Principal;
 
@@ -22,9 +21,7 @@ namespace WebApplication.Business.DirectoryServices.AccountManagement.Extensions
 			if(windowsIdentity == null || !windowsIdentity.IsAuthenticated)
 				return null;
 
-			var nameParts = (windowsIdentity.Name ?? string.Empty).Split('\\');
-
-			return nameParts.Length == 2 ? userPrincipalRepository.Get(nameParts.Last()) : null;
+			return userPrincipalRepository.Get(windowsIdentity.User);
 		}
 
 		#endregion

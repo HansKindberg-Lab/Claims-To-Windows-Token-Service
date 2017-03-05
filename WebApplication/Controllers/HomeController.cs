@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Principal;
 using System.Web.Mvc;
@@ -13,7 +14,7 @@ namespace WebApplication.Controllers
 	{
 		#region Constructors
 
-		public HomeController() : this(new UserPrincipalRepository(), new WindowsIdentityContext(), new WindowsIdentityFactory(), new WindowsImpersonator()) {}
+		public HomeController() : this(new UserPrincipalRepository(ConfigurationManager.ConnectionStrings["ActiveDirectory"].ConnectionString, new PrincipalContextParser()), new WindowsIdentityContext(), new WindowsIdentityFactory(), new WindowsImpersonator()) {}
 
 		public HomeController(IUserPrincipalRepository userPrincipalRepository, IWindowsIdentityContext windowsIdentityContext, IWindowsIdentityFactory windowsIdentityFactory, IWindowsImpersonator windowsImpersonator)
 		{

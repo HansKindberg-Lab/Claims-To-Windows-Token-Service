@@ -11,6 +11,7 @@ namespace HansKindberg.Security.Principal
 		bool IsAnonymous { get; }
 		bool IsGuest { get; }
 		bool IsSystem { get; }
+		ISecurityIdentifier User { get; }
 
 		#endregion
 	}

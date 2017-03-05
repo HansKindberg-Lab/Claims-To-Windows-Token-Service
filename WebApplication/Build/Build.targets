@@ -4,9 +4,17 @@
 	<PropertyGroup>
 		<BuildDependsOn>
 			TransformApplicationHostConfiguration;
+			EnsureConfigurationFiles;
 			$(BuildDependsOn);
 		</BuildDependsOn>
 	</PropertyGroup>
+	<Target Name="EnsureConfigurationFiles">
+		<Copy
+			Condition="!Exists('ConnectionStrings.config')"
+			DestinationFiles="ConnectionStrings.config"
+			SourceFiles="ConnectionStrings.Default.config"
+		/>
+	</Target>
 	<Target Name="TransformApplicationHostConfiguration">
 		<PropertyGroup>
 			<ApplicationHostConfigurationFile>$(SolutionDir).vs\config\ApplicationHost.config</ApplicationHostConfigurationFile>

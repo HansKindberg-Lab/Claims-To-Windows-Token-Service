@@ -21,6 +21,7 @@ namespace HansKindberg.Security.Principal
 		public virtual bool IsGuest => this.WrappedInstance.IsGuest;
 		public virtual bool IsSystem => this.WrappedInstance.IsSystem;
 		public virtual string Name => this.WrappedInstance.Name;
+		public virtual ISecurityIdentifier User => (SecurityIdentifierWrapper) this.WrappedInstance.User;
 
 		#endregion
 

@@ -8,6 +8,7 @@ packages/*
 Publish/
 release/
 testresults/
+WebApplication/ConnectionStrings.config
 *.suo
 *.user
 

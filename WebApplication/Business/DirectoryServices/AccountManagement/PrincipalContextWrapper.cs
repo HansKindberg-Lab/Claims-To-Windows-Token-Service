@@ -5,19 +5,22 @@ using HansKindberg.Abstractions;
 namespace WebApplication.Business.DirectoryServices.AccountManagement
 {
 	[SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "This is a wrapper.")]
-	public class UserPrincipalWrapper : Wrapper<UserPrincipal>, IUserPrincipal
+	public class PrincipalContextWrapper : Wrapper<PrincipalContext>, IPrincipalContext
 	{
 		#region Constructors
 
-		public UserPrincipalWrapper(UserPrincipal userPrincipal) : base(userPrincipal, nameof(userPrincipal)) {}
+		public PrincipalContextWrapper(PrincipalContext principalContext) : base(principalContext, nameof(principalContext)) {}
 
 		#endregion
 
 		#region Properties
 
-		public virtual string DistinguishedName => this.WrappedInstance.DistinguishedName;
-		public virtual string SamAccountName => this.WrappedInstance.SamAccountName;
-		public virtual string UserPrincipalName => this.WrappedInstance.UserPrincipalName;
+		public virtual string ConnectedServer => this.WrappedInstance.ConnectedServer;
+		public virtual string Container => this.WrappedInstance.Container;
+		public virtual ContextType ContextType => this.WrappedInstance.ContextType;
+		public virtual string Name => this.WrappedInstance.Name;
+		public virtual ContextOptions Options => this.WrappedInstance.Options;
+		public virtual string UserName => this.WrappedInstance.UserName;
 
 		#endregion
 
@@ -30,17 +33,17 @@ namespace WebApplication.Business.DirectoryServices.AccountManagement
 			this.WrappedInstance.Dispose();
 		}
 
-		public static UserPrincipalWrapper FromUserPrincipal(UserPrincipal userPrincipal)
+		public static PrincipalContextWrapper FromPrincipalContext(PrincipalContext principalContext)
 		{
-			return userPrincipal;
+			return principalContext;
 		}
 
 		#region Implicit operator
 
 		[SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Should be disposed by the caller.")]
-		public static implicit operator UserPrincipalWrapper(UserPrincipal userPrincipal)
+		public static implicit operator PrincipalContextWrapper(PrincipalContext principalContext)
 		{
-			return userPrincipal != null ? new UserPrincipalWrapper(userPrincipal) : null;
+			return principalContext != null ? new PrincipalContextWrapper(principalContext) : null;
 		}
 
 		#endregion

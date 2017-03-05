@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using HansKindberg.Security.Principal;
 
 namespace WebApplication.Business.DirectoryServices.AccountManagement
 {
@@ -7,7 +8,7 @@ namespace WebApplication.Business.DirectoryServices.AccountManagement
 		#region Methods
 
 		[SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Get")]
-		IUserPrincipal Get(string samAccountName);
+		IUserPrincipal Get(ISecurityIdentifier securityIdentifier);
 
 		#endregion
 	}
