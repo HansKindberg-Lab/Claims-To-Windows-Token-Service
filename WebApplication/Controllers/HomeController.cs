@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Principal;
 using System.Web.Mvc;
+using HansKindberg;
 using HansKindberg.Security.Principal;
 using WebApplication.Business;
 using WebApplication.Business.DirectoryServices.AccountManagement;
@@ -19,10 +20,13 @@ namespace WebApplication.Controllers
 	{
 		#region Constructors
 
-		public HomeController() : this(new SystemInformationFactory(), new UserPrincipalRepository(ConfigurationManager.ConnectionStrings["ActiveDirectory"].ConnectionString, new PrincipalContextParser()), new WindowsIdentityContext(), new WindowsIdentityFactory(), new WindowsImpersonator()) {}
+		public HomeController() : this(new EnvironmentWrapper(), new SystemInformationFactory(), new UserPrincipalRepository(ConfigurationManager.ConnectionStrings["ActiveDirectory"].ConnectionString, new PrincipalContextParser()), new WindowsIdentityContext(), new WindowsIdentityFactory(), new WindowsImpersonator()) {}
 
-		public HomeController(ISystemInformationFactory systemInformationFactory, IUserPrincipalRepository userPrincipalRepository, IWindowsIdentityContext windowsIdentityContext, IWindowsIdentityFactory windowsIdentityFactory, IWindowsImpersonator windowsImpersonator)
+		public HomeController(IEnvironment environment, ISystemInformationFactory systemInformationFactory, IUserPrincipalRepository userPrincipalRepository, IWindowsIdentityContext windowsIdentityContext, IWindowsIdentityFactory windowsIdentityFactory, IWindowsImpersonator windowsImpersonator)
 		{
+			if(environment == null)
+				throw new ArgumentNullException(nameof(environment));
+
 			if(systemInformationFactory == null)
 				throw new ArgumentNullException(nameof(systemInformationFactory));
 
@@ -38,6 +42,7 @@ namespace WebApplication.Controllers
 			if(windowsImpersonator == null)
 				throw new ArgumentNullException(nameof(windowsImpersonator));
 
+			this.Environment = environment;
 			this.SystemInformationFactory = systemInformationFactory;
 			this.UserPrincipalRepository = userPrincipalRepository;
 			this.WindowsIdentityContext = windowsIdentityContext;
@@ -48,6 +53,8 @@ namespace WebApplication.Controllers
 		#endregion
 
 		#region Properties
+
+		protected internal virtual IEnvironment Environment { get; }
 
 		protected internal virtual IPrincipal HttpContextUser
 		{
@@ -71,7 +78,7 @@ namespace WebApplication.Controllers
 
 		protected internal virtual HomeViewModel CreateModel()
 		{
-			return new HomeViewModel(this.WindowsIdentityContext.Current, this.HttpContextUser)
+			return new HomeViewModel(this.WindowsIdentityContext.Current, this.Environment, this.HttpContextUser)
 			{
 				ImpersonatedHttpContextUserIdentityInformation = this.GetImpersonatedHttpContextUserIdentityInformation(),
 				ImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService = this.GetImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService()

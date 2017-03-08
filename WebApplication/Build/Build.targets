@@ -27,6 +27,10 @@
 			</ApplicationHostConfigurationFileTransformation>
 			<ApplicationHostConfigurationFileTransformation Include="Second">
 				<Value>Allow</Value>
+				<XPath>$(ApplicationHostConfigurationFileTransformationXPathPrefix)section[@name='basicAuthentication']/@overrideModeDefault</XPath>
+			</ApplicationHostConfigurationFileTransformation>
+			<ApplicationHostConfigurationFileTransformation Include="Third">
+				<Value>Allow</Value>
 				<XPath>$(ApplicationHostConfigurationFileTransformationXPathPrefix)section[@name='windowsAuthentication']/@overrideModeDefault</XPath>
 			</ApplicationHostConfigurationFileTransformation>
 		</ItemGroup>

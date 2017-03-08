@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Principal;
+using HansKindberg;
 using HansKindberg.Security.Principal;
 using WebApplication.Business;
 using WebApplication.Models.Forms;
@@ -17,15 +18,19 @@ namespace WebApplication.Models.ViewModels
 
 		#region Constructors
 
-		public HomeViewModel(IWindowsIdentity currentWindowsIdentity, IPrincipal httpContextUser)
+		public HomeViewModel(IWindowsIdentity currentWindowsIdentity, IEnvironment environment, IPrincipal httpContextUser)
 		{
 			if(currentWindowsIdentity == null)
 				throw new ArgumentNullException(nameof(currentWindowsIdentity));
+
+			if(environment == null)
+				throw new ArgumentNullException(nameof(environment));
 
 			if(httpContextUser == null)
 				throw new ArgumentNullException(nameof(httpContextUser));
 
 			this.CurrentWindowsIdentity = currentWindowsIdentity;
+			this.Environment = environment;
 			this.HttpContextUser = httpContextUser;
 		}
 
@@ -34,6 +39,7 @@ namespace WebApplication.Models.ViewModels
 		#region Properties
 
 		public virtual IWindowsIdentity CurrentWindowsIdentity { get; }
+		public virtual IEnvironment Environment { get; }
 
 		public virtual FileData FileDataForm
 		{
