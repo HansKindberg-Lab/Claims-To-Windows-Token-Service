@@ -6,6 +6,7 @@ namespace WebApplication.Models.Forms
 	{
 		#region Properties
 
+		[Display(Name = "Impersonate with Claims to Windows Token Service")]
 		public virtual bool ImpersonateWithClaimsToWindowsTokenService { get; set; }
 
 		[Display(Name = "Line to add")]

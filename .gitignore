@@ -8,9 +8,11 @@ packages/*
 Publish/
 release/
 testresults/
+WebApplication/Client/Style/*.css
 WebApplication/ConnectionStrings.config
 *.suo
 *.user
 
 !.Global/Signing/ReadMe.txt
 !.Global/Signing/StrongName.Development.snk
+!WebApplication/Client/Style/bootstrap.css

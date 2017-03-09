@@ -48,8 +48,8 @@ namespace WebApplication.Models.ViewModels
 		}
 
 		public virtual IPrincipal HttpContextUser { get; }
-		public virtual string ImpersonatedHttpContextUserIdentityInformation { get; set; }
-		public virtual string ImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService { get; set; }
+		public virtual ISystemInformation ImpersonatedHttpContextUserIdentityInformation { get; set; }
+		public virtual ISystemInformation ImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService { get; set; }
 		public virtual ISystemInformation SystemInformation { get; set; }
 
 		public virtual UserAccountData UserAccountDataForm

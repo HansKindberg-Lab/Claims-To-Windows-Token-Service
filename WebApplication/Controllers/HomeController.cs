@@ -76,6 +76,21 @@ namespace WebApplication.Controllers
 
 		#region Methods
 
+		protected internal virtual ISystemInformation CreateConfirmation(string information)
+		{
+			return this.SystemInformationFactory.Create("Confirmation", information, null, SystemInformationType.Confirmation);
+		}
+
+		protected internal virtual ISystemInformation CreateError(Exception exception)
+		{
+			return this.SystemInformationFactory.Create("Error", exception?.ToString(), null, SystemInformationType.Exception);
+		}
+
+		protected internal virtual ISystemInformation CreateInformation(string information)
+		{
+			return this.SystemInformationFactory.Create(null, information, null, SystemInformationType.Information);
+		}
+
 		protected internal virtual HomeViewModel CreateModel()
 		{
 			return new HomeViewModel(this.WindowsIdentityContext.Current, this.Environment, this.HttpContextUser)
@@ -83,6 +98,11 @@ namespace WebApplication.Controllers
 				ImpersonatedHttpContextUserIdentityInformation = this.GetImpersonatedHttpContextUserIdentityInformation(),
 				ImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService = this.GetImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService()
 			};
+		}
+
+		protected internal virtual ISystemInformation CreateWarning(string information)
+		{
+			return this.SystemInformationFactory.Create("Warning", information, null, SystemInformationType.Warning);
 		}
 
 		protected internal virtual ActionResult CreateView(HomeViewModel model)
@@ -133,15 +153,15 @@ namespace WebApplication.Controllers
 
 		[SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
 		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-		protected internal virtual string GetImpersonatedHttpContextUserIdentityInformation()
+		protected internal virtual ISystemInformation GetImpersonatedHttpContextUserIdentityInformation()
 		{
 			if(!this.HttpContextUser.Identity.IsAuthenticated)
-				return "Error: The user is not authenticated.";
+				return this.CreateWarning("The user is not authenticated.");
 
 			var windowsPrincipal = this.HttpContextUser as IWindowsPrincipal;
 
 			if(windowsPrincipal == null)
-				return "Error: The user is not a windows-user.";
+				return this.CreateWarning("The user is not a windows-user.");
 
 			try
 			{
@@ -160,32 +180,32 @@ namespace WebApplication.Controllers
 							authenticationType = "[Error getting authentication-type: " + exception + "]";
 						}
 
-						return "Impersonated windows-identity: \"" + impersonatedWindowsIdentity.Name + "\" (AuthenticationType = \"" + authenticationType + "\", ImpersonationLevel = " + impersonatedWindowsIdentity.ImpersonationLevel + ")";
+						return this.CreateInformation("Impersonated windows-identity: \"" + impersonatedWindowsIdentity.Name + "\" (AuthenticationType = \"" + authenticationType + "\", ImpersonationLevel = " + impersonatedWindowsIdentity.ImpersonationLevel + ")");
 					}
 				}
 			}
 			catch(Exception exception)
 			{
-				return "Error: " + exception;
+				return this.CreateError(exception);
 			}
 		}
 
 		[SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
 		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-		protected internal virtual string GetImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService()
+		protected internal virtual ISystemInformation GetImpersonatedHttpContextUserIdentityInformationWithClaimsToWindowsTokenService()
 		{
 			if(!this.HttpContextUser.Identity.IsAuthenticated)
-				return "Error: The user is not authenticated.";
+				return this.CreateWarning("The user is not authenticated.");
 
 			if(!(this.HttpContextUser is IWindowsPrincipal))
-				return "Error: The user is not a windows-user.";
+				return this.CreateWarning("The user is not a windows-user.");
 
 			try
 			{
 				using(var userPrincipal = this.UserPrincipalRepository.Get(this.HttpContextUser))
 				{
 					if(userPrincipal == null)
-						return "Error: The user-principal for \"" + this.HttpContextUser.Identity.Name + "\" does not exist.";
+						return this.CreateWarning("The user-principal for \"" + this.HttpContextUser.Identity.Name + "\" does not exist.");
 
 					using(var windowsIdentity = this.WindowsIdentityFactory.Create(userPrincipal.UserPrincipalName))
 					{
@@ -204,7 +224,7 @@ namespace WebApplication.Controllers
 									authenticationType = "[Error getting authentication-type: " + exception + "]";
 								}
 
-								return "Impersonated windows-identity: \"" + impersonatedWindowsIdentity.Name + "\" (AuthenticationType = \"" + authenticationType + "\", ImpersonationLevel = " + impersonatedWindowsIdentity.ImpersonationLevel + ")";
+								return this.CreateInformation("Impersonated windows-identity: \"" + impersonatedWindowsIdentity.Name + "\" (AuthenticationType = \"" + authenticationType + "\", ImpersonationLevel = " + impersonatedWindowsIdentity.ImpersonationLevel + ")");
 							}
 						}
 					}
@@ -212,7 +232,7 @@ namespace WebApplication.Controllers
 			}
 			catch(Exception exception)
 			{
-				return "Error: " + exception;
+				return this.CreateError(exception);
 			}
 		}
 
@@ -269,17 +289,17 @@ namespace WebApplication.Controllers
 			{
 				try
 				{
-					this.Impersonate(() =>
-					{
-						try
-						{
-							return null;
-						}
-						catch(Exception exception)
-						{
-							return exception;
-						}
-					}, form.ImpersonateWithClaimsToWindowsTokenService);
+					//this.Impersonate(() =>
+					//{
+					//	try
+					//	{
+					//		return null;
+					//	}
+					//	catch(Exception exception)
+					//	{
+					//		return exception;
+					//	}
+					//}, form.ImpersonateWithClaimsToWindowsTokenService);
 
 					//this.SetConfirmation(model, "File saved.");
 					model.SystemInformation = this.SystemInformationFactory.Create("Warning", "Not implemented", null, SystemInformationType.Warning);
@@ -355,7 +375,7 @@ namespace WebApplication.Controllers
 			if(model == null)
 				throw new ArgumentNullException(nameof(model));
 
-			model.SystemInformation = this.SystemInformationFactory.Create("Confirmation", information, null, SystemInformationType.Confirmation);
+			model.SystemInformation = this.CreateConfirmation(information);
 		}
 
 		protected internal virtual void SetError(HomeViewModel model, Exception exception)
@@ -363,7 +383,7 @@ namespace WebApplication.Controllers
 			if(model == null)
 				throw new ArgumentNullException(nameof(model));
 
-			model.SystemInformation = this.SystemInformationFactory.Create("Error", exception?.ToString(), null, SystemInformationType.Exception);
+			model.SystemInformation = this.CreateError(exception);
 		}
 
 		protected internal virtual void SetInputError(HomeViewModel model, IEnumerable<string> details)

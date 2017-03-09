@@ -1,12 +1,12 @@
 ﻿@model ISystemInformation
 @if(Model != null)
 {
-	<div class="alert">
+	<div class="alert @Model.GetAlertClass("alert-success", "alert-danger", "alert-info", "alert-warning")">
 		@if(!string.IsNullOrEmpty(Model.Heading))
 		{
 			<h2>@Model.Heading</h2>
 		}
-		@if(!string.IsNullOrEmpty(Model.Heading))
+		@if(!string.IsNullOrEmpty(Model.Information))
 		{
 			<p>@Model.Information</p>
 		}

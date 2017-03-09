@@ -13,7 +13,8 @@
     <IISExpressUseClassicPipelineMode />
     <IISExpressWindowsAuthentication />
     <MvcBuildViews>false</MvcBuildViews>
-    <NuGetPackageImportStamp />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <OutputType>Library</OutputType>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion />
@@ -123,6 +124,7 @@
     <Compile Include="Business\DirectoryServices\AccountManagement\PrincipalContextWrapper.cs" />
     <Compile Include="Business\DirectoryServices\AccountManagement\UserPrincipalRepository.cs" />
     <Compile Include="Business\DirectoryServices\AccountManagement\UserPrincipalWrapper.cs" />
+    <Compile Include="Business\Extensions\SystemInformationExtension.cs" />
     <Compile Include="Business\ISystemInformation.cs" />
     <Compile Include="Business\ISystemInformationFactory.cs" />
     <Compile Include="Business\SystemInformation.cs" />
@@ -145,6 +147,15 @@
     <Compile Include="Models\Forms\FileData.cs" />
     <Compile Include="Models\ViewModels\AzureProbeViewModel.cs" />
     <Compile Include="Models\ViewModels\HomeViewModel.cs" />
+    <Content Include="Client\Fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Client\Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Client\Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Client\Fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Client\Style\Parts\Variables.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="$(SolutionDir)$(GlobalPropertiesDirectoryRelativePath)Solution-Basic-AssemblyInfo.cs">
@@ -153,6 +164,17 @@
     <Compile Include="$(SolutionDir)$(GlobalPropertiesDirectoryRelativePath)Solution-Version-AssemblyInfo.cs">
       <Link>Properties\Solution-Version-AssemblyInfo.cs</Link>
     </Compile>
+    <Content Include="Client\Fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Client\Scripts\bootstrap.js" />
+    <Content Include="Client\Scripts\jquery-3.1.1.js" />
+    <Content Include="Client\Scripts\npm.js" />
+    <Content Include="Client\Style\bootstrap.css" />
+    <Content Include="Client\Style\Main.css">
+      <DependentUpon>Main.scss</DependentUpon>
+    </Content>
+    <None Include="Client\Style\Main.min.css">
+      <DependentUpon>Main.css</DependentUpon>
+    </None>
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -168,6 +190,8 @@
     <Content Include="Views\Home\Forms\UserAccountDataForm.cshtml" />
     <Content Include="Views\Home\Forms\FileDataForm.cshtml" />
     <Content Include="Views\AzureProbe\Index.cshtml" />
+    <None Include="Client\Style\Main.scss" />
+    <None Include="Client\Style\Parts\Framework.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -182,7 +206,14 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="..\packages\BuildWebCompiler.1.11.328\build\BuildWebCompiler.targets" Condition="Exists('..\packages\BuildWebCompiler.1.11.328\build\BuildWebCompiler.targets')" />
   <Import Condition="Exists('Build\Build.targets')" Project="Build\Build.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\BuildWebCompiler.1.11.328\build\BuildWebCompiler.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BuildWebCompiler.1.11.328\build\BuildWebCompiler.targets'))" />
+  </Target>
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler PhysicalPath="$(WebProjectOutputDir)" VirtualPath="temp" />
   </Target>

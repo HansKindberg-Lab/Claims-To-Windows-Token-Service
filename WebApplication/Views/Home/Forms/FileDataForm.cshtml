@@ -17,9 +17,10 @@
 			</div>
 			<div>
 				@{ metadata = ViewData.ModelMetadata.Properties.First(property => property.PropertyName.Equals("ImpersonateWithClaimsToWindowsTokenService", StringComparison.OrdinalIgnoreCase)); }
-				<button name="@metadata.PropertyName" title="Ordinary impersonation" type="submit" value="false">Save</button>
-				<button name="@metadata.PropertyName" title="Impersonate with Claims to Windows Token Service" type="submit" value="true">Save (service-impersonation)</button>
+				<input@(Html.Raw(Model.ImpersonateWithClaimsToWindowsTokenService ? " checked=\"checked\"" : string.Empty)) id="file-use-service-input" name="@metadata.PropertyName" type="checkbox" value="true" />
+				<label for="file-use-service-input">@metadata.GetDisplayName()</label>
 			</div>
+			<button type="submit">Save</button>
 		</fieldset>
 	</form>
 }
