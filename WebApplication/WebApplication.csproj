@@ -135,6 +135,7 @@
     <Compile Include="$(SolutionDir)$(GlobalCodeAnalysisDirectoryRelativePath)SolutionSuppressions.cs">
       <Link>CodeAnalysis\SolutionSuppressions.cs</Link>
     </Compile>
+    <Compile Include="Controllers\AzureProbeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Global.asax.cs">
@@ -142,6 +143,7 @@
     </Compile>
     <Compile Include="Models\Forms\UserAccountData.cs" />
     <Compile Include="Models\Forms\FileData.cs" />
+    <Compile Include="Models\ViewModels\AzureProbeViewModel.cs" />
     <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,6 +167,7 @@
     <Content Include="Views\Shared\SystemInformation.cshtml" />
     <Content Include="Views\Home\Forms\UserAccountDataForm.cshtml" />
     <Content Include="Views\Home\Forms\FileDataForm.cshtml" />
+    <Content Include="Views\AzureProbe\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
